@@ -1,0 +1,23 @@
+<div class="prompt">
+    <div>{{ prompt().title }} par {{ prompt().author.username }}
+        <button>Edit</button>
+        <button (click)="copyToClipboard()">copier</button></div>
+
+    <textarea readonly rows="8">
+        {{ prompt().content }}
+    </textarea>
+
+    <div>
+        <span>
+            {{ prompt().category.name }}
+        </span>
+
+        <button>Upvote</button>
+
+        <span>
+            {{ prompt().score }}
+        </span>
+
+        <button>Downvote</button>
+    </div>
+</div>

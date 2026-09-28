@@ -1,0 +1,23 @@
+<p-card [header]="mode() === 'login' ? 'Connexion' : 'Créer un compte'">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="field">
+            <label for="username">Nom d'utilisateur</label>
+            <input id="username" type="text" pInputTextarea formControlName="username" class="w-full">
+            <small class="invalid-feedback">Le nom d'utilisateur est requis</small>
+        </div>
+
+        <div class="field">
+            <label for="password">Mot de passe</label>
+            <p-password id="password" formControlName="password" class="w-full" inputStyleClass="w-full" />
+            <small class="invalid-feedback">Le mot de passe est requis (min 4 carac.)</small>
+        </div>
+
+        <div class="flex gap-2 justify-content-end">
+            <button pButton severity="secondary" [loading]="submitting()" (click)="toggleMode()">
+                {{ mode() === 'login' ? 'Créer un compte' : 'Se connecter'}}
+            </button>
+
+            <button type="submit" pButton>{{ mode() === 'login' ? 'Connexion' : 'Créer le compte'}}</button>
+        </div>
+    </form>
+</p-card>

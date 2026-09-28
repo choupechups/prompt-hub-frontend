@@ -1,23 +1,31 @@
-<div class="prompt">
-    <div>{{ prompt().title }} par {{ prompt().author.username }}
-        <button>Edit</button>
-        <button (click)="copyToClipboard()">copier</button></div>
+<p-card class="mb-3">
+    <div class="flex justify-content-between align-items-center mb-2">
+        <div>
+            <h3 class="m-0">{{ prompt().title }}</h3> 
+            <div class="text-sm text-color-secondary">&#64;{{ prompt().author.username }}</div> 
+         </div>
 
-    <textarea readonly rows="8">
+         <div class="flex gap-2">
+            @if (canEdit()) {
+                <p-button [routerLink]="['/prompts', prompt().id, 'edit']" icon="pi pi-pencil" [text]="true" size="small" />
+            }
+             <p-button icon="pi pi-copy" [text]="true" size="small" (onClick)="copyToClipboard()" />
+         </div>
+    </div>
+    
+    <textarea pTextarea readonly rows="8" class="w-full mb-2">
         {{ prompt().content }}
     </textarea>
+    
+    <div class="flex align-items-center justify-content-between">
+        <p-tag [value]="prompt().category.name" />
 
-    <div>
-        <span>
-            {{ prompt().category.name }}
-        </span>
-
-        <button>Upvote</button>
-
-        <span>
-            {{ prompt().score }}
-        </span>
-
-        <button>Downvote</button>
+        <div class="flex gap-2 align-items-center">
+            <p-button (onClick)="upvote()" [loading]="voting()" [severity]="userVote() === 'up' ? 'primary' : 'secondary'" icon="pi pi-thumbs-up" size="small" />
+            <span>
+                {{ score() }}
+            </span>
+            <p-button (onClick)="downvote()" [loading]="voting()" [severity]="userVote() === 'down' ? 'primary' : 'secondary'" icon="pi pi-thumbs-down" size="small" />
+        </div>
     </div>
-</div>
+</p-card>
